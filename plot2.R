@@ -32,8 +32,8 @@ wDays <- strptime(paste(epc$Date, epc$Time), format='%d/%m/%Y %H:%M:%S')
 epc$Global_active_power <- as.double(as.character(epc$Global_active_power))
 
 #Generate plot2
-plot(wDays, epc$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+png(file = plot.file.name, width = 480, height = 480)
+par(mfrow = c(1, 1))
+with(epc, plot(wDays, epc$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
 
-#Push plot2 to a png format
-dev.copy(png, plot.file.name, width = 480, height = 480)
 dev.off()

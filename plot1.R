@@ -23,7 +23,7 @@ date.2 <- "2/2/2007" #DD/MM/YYYY
 
 #Load and filter the electric power consumption data.table
 hpc <- read.table(file = data.file.name, sep = ";", header = T)
-hpc$Date <- as.character(hpc$Date)
+#hpc$Date <- as.character(hpc$Date)
 epc <- as.data.table(filter(hpc, Date == date.1 | Date == date.2))
 rm(hpc)
 
@@ -31,8 +31,8 @@ rm(hpc)
 epc$Global_active_power <- as.double(as.character(epc$Global_active_power))
 
 #Generate plot1
-hist(epc$Global_active_power, main = "Global Active Power", col = "Red", xlab = "Global Active Power (kilowatts)")
+png(file = plot.file.name, width = 480, height = 480)
+par(mfrow = c(1, 1))
+with (epc, hist(Global_active_power, main = "Global Active Power", col = "Red", xlab = "Global Active Power (kilowatts)"))
 
-#Push plot1 to a png format
-dev.copy(png, plot.file.name, width = 480, height = 480)
 dev.off()

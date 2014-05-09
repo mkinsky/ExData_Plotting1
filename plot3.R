@@ -29,17 +29,16 @@ rm(hpc)
 
 #Cast columns to different data types
 wDays <- strptime(paste(epc$Date, epc$Time), format='%d/%m/%Y %H:%M:%S')
-#epc$Global_active_power <- as.double(as.character(epc$Global_active_power))
 epc$Sub_metering_1 <- as.double(as.character(epc$Sub_metering_1))
 epc$Sub_metering_2 <- as.double(as.character(epc$Sub_metering_2))
 epc$Sub_metering_3 <- as.double(as.character(epc$Sub_metering_3))
 
 #Generate plot3
-plot(wDays, epc$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering", col = "Black")
+png(file = plot.file.name, width = 480, height = 480)
+par(mfrow = c(1,1))
+with(epc, plot(wDays, epc$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering", col = "Black"))
 lines(wDays, epc$Sub_metering_2, type="l", col = "Red")
 lines(wDays, epc$Sub_metering_3, type="l", col = "Blue")
 legend("topright",cex=0.8, lty = 1, col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
-#Push plot3 to a png format
-dev.copy(png, plot.file.name, width = 480, height = 480)
 dev.off()
